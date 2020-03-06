@@ -7,7 +7,7 @@ class period():
     def __init__(self, dateRange, days = list()):
         super(period, self).__init__()
         self.dateRange = dateRange
-        self.days = days
+        self.days = days.copy()
     def isValid(self, day_):
         if day_.date == None:
             return True

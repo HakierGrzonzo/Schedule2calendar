@@ -5,18 +5,19 @@ import datetime
 class Calendar():
     """docstring for Calendar."""
 
-    def __init__(self, startDate = None, defaultPeriodLength = 28,  periods = list()):
+    def __init__(self, startDate = None, defaultPeriodLength = 28,  periods = list(), name = str()):
         super(Calendar, self).__init__()
         if not defaultPeriodLength > 0:
             raise ValueError('defaultPeriodLength must be > 0')
         if startDate == None and len(periods) == 0:
             raise ValueError('Supply startDate or not empty periods')
-        self.periods = periods
+        self.periods = periods.copy()
         self.periods.sort()
         if startDate == None:
             startDate = self.periods[0].dateRange[0]
         self.startDate = startDate
         self.defaultPeriodLength = defaultPeriodLength
+        self.name = name
     def addEvent(self, event_):
         if not isinstance(event_, Event.event):
             raise TypeError('event is not EventCalendar.Event.event object')
@@ -55,4 +56,3 @@ class Calendar():
         for x in self.periods:
             res += str(x).replace('\n', '\n ') + '\n'
         return res.strip()
-        

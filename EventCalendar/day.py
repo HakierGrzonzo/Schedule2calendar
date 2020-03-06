@@ -9,7 +9,7 @@ class day():
         if not isinstance(date, datetime.date):
             raise Exception('date in not datetime.date')
         self.date = date
-        self.events = events
+        self.events = events.copy()
     def addEvent(self, event_):
         if not isinstance(event_, event.event):
             raise Exception('Event is not calendar.event.event')

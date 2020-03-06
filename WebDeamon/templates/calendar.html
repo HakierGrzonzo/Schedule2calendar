@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>EventCalendar {{ name }}</title>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Calendar: {{ name }}</h1>
+    </div>
+    <hr>
+    <div class="calendar">
+      {% if events %}
+      <table class="calendar">
+        <tr>
+          <th>Date:</th>
+          <th>Name:</th>
+          <th>Time:</th>
+        </tr>
+        {% for event in events %}
+        <tr>
+          <td>{{ event.date }}</td>
+          <td>{{ event.name }}</td>
+          <td>{{ event.time }}</td>
+        </tr>        
+    </div>

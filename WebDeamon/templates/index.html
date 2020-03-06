@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>EventCalendar web interface</title>
+  </head>
+  <body>
+    <div class="header">
+      <h1>EventCalendar web interface</h1>
+    </div>
+    <hr>
+    <div class="interface">
+      <h2>Calendars</h2>
+      {% if calendars %}
+      <ol>
+        {% for calendar in calendars %}
+        <li><a href="{{ calendar.url }}">{{ calendar.name }}</a>. Starts at {{ calendar.startDate }}</li>
+        {% endfor %}
+      </ol>
+      {% else %}
+      <p>Wow such empty…</p>
+      {% endif %}
+    </div>
+    {% if error %}
+    <div>
+      <p class="error">{{ error }}</p>
+    </div>
+    {% endif %}
+    <hr>
+    <div class="CalendarForm">
+      <h2>Add Calendar:</h2>
+      <form action="/index" class="AdderForm">
+        <label class="AdderForm" for="calendarName">Calendar name</label>
+        <input class="AdderForm" type="text" id="calendarName" name="calendarName"><br>
+        <input class="AdderForm" type="submit" value="Create">
+      </form>
+      <Copyright (c) 2020 Grzegorz Koperwas All Rights Reserved.>
+    </div>
+  </body>
+</html>
