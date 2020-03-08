@@ -24,8 +24,6 @@ class event():
     def __hash__(self):
         return hash((self.time, self.name, self.properties, self.date))
     def __lt__(self, other):
-        if not isinstance(other, event):
-            return NotImplemented
         if self.date == other.date:
             return self.time < other.time
         else:

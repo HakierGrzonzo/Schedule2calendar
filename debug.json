@@ -49,5 +49,6 @@
         }
     ],
     "startDate": "2020-03-05",
-    "defaultPeriodLength": 28
+    "defaultPeriodLength": 28,
+    "name": "debug"
 }

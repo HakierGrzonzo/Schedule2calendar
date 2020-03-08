@@ -13,7 +13,7 @@ class period():
             return True
         return day_.date >= self.dateRange[0] and day_.date <= self.dateRange[1]
     def findEvent(self, event_):
-        if isValid(event_):
+        if self.isValid(event_):
             res = list()
             for day in self.days:
                 for x in day.findEvent(event_):
@@ -27,11 +27,12 @@ class period():
         success = False
         for day in self.days:
             if day.date == event.date:
-                day.events.append(event)
+                day.addEvent(event)
                 success = True
                 break
         if not success:
             self.days.append(Day.day(event.date, [event]))
+            self.days.sort()
     def __str__(self):
         res = str(self.dateRange[0]) + ' - ' + str(self.dateRange[1]) + '\n '
         for x in self.days:

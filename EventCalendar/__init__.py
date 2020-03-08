@@ -10,7 +10,8 @@ def get_json(object):
 
 def load_from_dict(data):
     return Calendar.Calendar(
-        startDate = data['startDate'],
+        name = data['name'],
+        startDate = datetime.date.fromisoformat(data['startDate']),
         defaultPeriodLength = data['defaultPeriodLength'],
         periods = list(
             [Period.period(

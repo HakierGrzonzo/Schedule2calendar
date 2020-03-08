@@ -1,24 +1,51 @@
 <html>
   <head>
     <title>EventCalendar {{ name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-    <div class="header">
+    <header class="header">
       <h1>Calendar: {{ name }}</h1>
-    </div>
+      <a class="header" href="/index">Go back</a>
+    </header>
     <hr>
-    <div class="calendar">
-      {% if events %}
-      <table class="calendar">
-        <tr>
-          <th>Date:</th>
-          <th>Name:</th>
-          <th>Time:</th>
-        </tr>
-        {% for event in events %}
-        <tr>
-          <td>{{ event.date }}</td>
-          <td>{{ event.name }}</td>
-          <td>{{ event.time }}</td>
-        </tr>        
-    </div>
+    {% if error %}
+    <h3 class="error">{{ error }}</h3>
+    {% endif %}
+    <section>
+      <article class="calendar">
+        <aside>
+          <h3>Add new event</h3>
+          <form class="AdderForm" action="/calendar/{{ name }}">
+            <label class="AdderForm" for="eventName">Event name:</label>
+            <input class="AdderForm" type="text" id="eventName" name="eventName" required>
+            <label class="AdderForm" for="eventDate">Event date:</label>
+            <input class="AdderForm" type="date" id="eventDate" name="eventDate" min="{{ minDate }}" required>
+            <label class="AdderForm" for="eventTime">Event time:</label>
+            <input class="AdderForm" type="time" id="eventTime" name="eventTime" required>
+            <input class="AdderFormButton" type="submit" value="Create">
+          </form>
+        </aside>
+        {% if days %}
+        <table class="calendar">
+          {% for day in days %}
+          <tr class="calendar">
+            <th colspan="3" class="day-header"><time>{{ day.date }}</time></th>
+          </tr>
+          {% for event in day.events %}
+          <tr class="calendar">
+            <td class="event-time"><time>{{ event.time }}</time></td>
+            <td class="calendar">{{ event.name }}</td>
+            <td class="calendar">{{ event.author }}</td>
+          </tr>
+          {% endfor %}
+          {% endfor %}
+        </table>
+        {% else %}
+        <p>wow such empty</p>
+        {% endif %}
+      </article>
+    </section>
+  </body>
+</html>

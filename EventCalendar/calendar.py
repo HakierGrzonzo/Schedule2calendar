@@ -44,8 +44,6 @@ class Calendar():
             self.periods.append(newPeriod)
             self.periods.sort()
     def findEvent(self, event_):
-        if not isinstance(event_, Event.dummyEvent):
-            raise TypeError('event is not EventCalendar.Event.dummyEvent')
         res = list()
         for x in self.periods:
             if x.isValid(event_):

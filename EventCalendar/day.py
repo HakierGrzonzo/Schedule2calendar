@@ -16,14 +16,21 @@ class day():
         if event_.date != self.date:
             raise Exception('Event is not valid for this day')
         self.events.append(event_)
+        self.events.sort()
     def findEvent(self, toFind):
         res = list()
         for event_ in self.events:
-            if toFind.isEvent(event_):
-                res.append(event_)
+            if isinstance(toFind, event.dummyEvent):
+                if toFind.isEvent(event_):
+                    res.append(event_)
+            else:
+                if toFind == event_:
+                    res.append(event_)
         return res
     def __str__(self):
         res = str(self.date) +'\n'
         for x in self.events:
             res += ' |' + str(x) +'\n'
         return res.strip()
+    def __lt__(self, other):
+        return self.date < other.date
