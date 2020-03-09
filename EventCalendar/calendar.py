@@ -1,12 +1,21 @@
 import EventCalendar.period as Period
 import EventCalendar.event as Event
-import datetime
+import datetime, json
+
+def get_json(object):
+  return json.loads(
+    json.dumps(object, default=lambda o: getattr(o, '__dict__', str(o)))
+  )
 
 class Calendar():
     """docstring for Calendar."""
 
-    def __init__(self, startDate = None, defaultPeriodLength = 28,  periods = list(), name = str()):
+    def __init__(self, startDate = None, defaultPeriodLength = 28,  periods = list(), name = str(), logFile = None, on_close = None):
         super(Calendar, self).__init__()
+        if logFile == None:
+            self.logFile = open('logs/'+name+'.log', 'a+')
+        else:
+            self.logFile = logFile
         if not defaultPeriodLength > 0:
             raise ValueError('defaultPeriodLength must be > 0')
         if startDate == None and len(periods) == 0:
@@ -18,12 +27,14 @@ class Calendar():
         self.startDate = startDate
         self.defaultPeriodLength = defaultPeriodLength
         self.name = name
+        self.on_close = on_close
     def addEvent(self, event_):
         if not isinstance(event_, Event.event):
             raise TypeError('event is not EventCalendar.Event.event object')
         if event_.date < self.startDate:
             raise ValueError('event has not valid date')
         success = False
+        self.logFile.write(json.dumps(get_json(event_)) + '\n')
         for x in self.periods:
             try:
                 x.addEvent(event_)
@@ -54,3 +65,11 @@ class Calendar():
         for x in self.periods:
             res += str(x).replace('\n', '\n ') + '\n'
         return res.strip()
+    def __del__(self):
+        self.logFile.close()
+        if self.on_close != None:
+            try:
+                self.on_close(self)
+                print('succesfuly closed:', self.name)
+            except Exception as e:
+                print('failed to close:', self.name +';', 'Is python shuting down?')

@@ -8,11 +8,16 @@ def get_json(object):
     json.dumps(object, default=lambda o: getattr(o, '__dict__', str(o)))
   )
 
-def load_from_dict(data):
+def save_calendar(calendar):
+    with open('calendars/'+calendar.name+'.json', 'w+') as f:
+        f.write(json.dumps(get_json(calendar), indent = 4))
+
+def load_from_dict(data, on_close = None):
     return Calendar.Calendar(
         name = data['name'],
         startDate = datetime.date.fromisoformat(data['startDate']),
         defaultPeriodLength = data['defaultPeriodLength'],
+        on_close = on_close,
         periods = list(
             [Period.period(
                 dateRange = list([

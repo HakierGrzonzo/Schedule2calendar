@@ -1,0 +1,58 @@
+{
+    "logFile": {
+        "mode": "a+"
+    },
+    "periods": [
+        {
+            "dateRange": [
+                "2020-02-06",
+                "2020-03-05"
+            ],
+            "days": [
+                {
+                    "date": "2020-03-05",
+                    "events": [
+                        {
+                            "date": "2020-03-05",
+                            "time": "15:20:00",
+                            "name": "test",
+                            "properties": {},
+                            "author": ""
+                        },
+                        {
+                            "date": "2020-03-05",
+                            "time": "16:20:00",
+                            "name": "test3",
+                            "properties": {},
+                            "author": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "dateRange": [
+                "2020-04-02",
+                "2020-04-30"
+            ],
+            "days": [
+                {
+                    "date": "2020-04-04",
+                    "events": [
+                        {
+                            "date": "2020-04-04",
+                            "time": "16:30:00",
+                            "name": "test2",
+                            "properties": {},
+                            "author": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "startDate": "2020-03-05",
+    "defaultPeriodLength": 28,
+    "name": "debug",
+    "on_close": {}
+}

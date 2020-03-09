@@ -4,7 +4,7 @@ import EventCalendar
 import datetime, json
 
 calendars = list()
-calendars.append(EventCalendar.load_from_dict(json.load(open('debug.json'))))
+calendars.append(EventCalendar.load_from_dict(json.load(open('debug.json')), EventCalendar.save_calendar))
 
 @app.route('/')
 @app.route('/index')
@@ -66,3 +66,10 @@ def calendarDisplayer(calendarName):
         for j in range(len(dayArray[i]['events'])):
             dayArray[i]['events'][j]['time'] = dayArray[i]['events'][j]['time'][:len(dayArray[i]['events'][j]['time']) - 3]
     return render_template('calendar.html', name = calendar.name, days = dayArray, minDate = calendar.startDate.isoformat(), error = error)
+
+@app.route('/stop')
+def stoper():
+    global calendars
+    for x in calendars:
+        x.__del__()
+    return "success"
