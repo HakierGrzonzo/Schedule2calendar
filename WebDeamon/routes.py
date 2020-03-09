@@ -1,16 +1,16 @@
 from WebDeamon import app
 from flask import request, render_template, abort
 import EventCalendar
-import datetime, json
+import datetime, json, os
 
 calendars = list()
-calendars.append(EventCalendar.load_from_dict(json.load(open('debug.json')), EventCalendar.save_calendar))
 
 @app.route('/')
 @app.route('/index')
 def index():
     global calendars
     error = None
+    # if new calendar was requested -> try to create it
     try:
         newCalendarName = request.args.get('calendarName')
         if newCalendarName in [x.name for x in calendars]:
@@ -22,6 +22,7 @@ def index():
             ))
     except Exception as e:
         print(e)
+    # Create list of calendars for the page
     calendar_return = list([{'name': x.name, 'startDate': x.startDate,
         'url': '/calendar/'+x.name} for x in calendars])
     if len(calendar_return) == 0:
@@ -33,10 +34,12 @@ def calendarDisplayer(calendarName):
     global calendars
     error = None
     calendar = None
+    # find requested calendar by name
     for x in calendars:
         if calendarName == x.name:
             calendar = x
             break
+    # on faliure -> 404
     if calendar == None:
         abort(404)
     #Extract data for new event from query:
@@ -57,19 +60,29 @@ def calendarDisplayer(calendarName):
         pass
     except AttributeError:
         pass
+    # Create list of days from the calendar, and convert them to json
     dayArray = list()
     for period in calendar.periods:
         for day in period.days:
             dayArray.append(day)
     dayArray = [EventCalendar.get_json(x) for x in dayArray]
+    # remove seconds from time
     for i in range(len(dayArray)):
         for j in range(len(dayArray[i]['events'])):
             dayArray[i]['events'][j]['time'] = dayArray[i]['events'][j]['time'][:len(dayArray[i]['events'][j]['time']) - 3]
+    # sync the local database
+    localSync()
     return render_template('calendar.html', name = calendar.name, days = dayArray, minDate = calendar.startDate.isoformat(), error = error)
 
-@app.route('/stop')
-def stoper():
+@app.route('/sync/local')
+def localSync():
+    """save the calendars, and load them from files"""
     global calendars
     for x in calendars:
-        x.__del__()
+        EventCalendar.save_calendar(x)
+    calendars = list()
+    for dirpath, dirnames, filenames in os.walk('calendars/'):
+        for x in filenames:
+            with open(os.path.join(dirpath, x), 'r') as f:
+                calendars.append(EventCalendar.load_from_dict(json.loads(f.read())))
     return "success"

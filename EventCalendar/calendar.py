@@ -10,7 +10,7 @@ def get_json(object):
 class Calendar():
     """docstring for Calendar."""
 
-    def __init__(self, startDate = None, defaultPeriodLength = 28,  periods = list(), name = str(), logFile = None, on_close = None):
+    def __init__(self, startDate = None, defaultPeriodLength = 28,  periods = list(), name = str(), logFile = None):
         super(Calendar, self).__init__()
         if logFile == None:
             self.logFile = open('logs/'+name+'.log', 'a+')
@@ -27,7 +27,6 @@ class Calendar():
         self.startDate = startDate
         self.defaultPeriodLength = defaultPeriodLength
         self.name = name
-        self.on_close = on_close
     def addEvent(self, event_):
         if not isinstance(event_, Event.event):
             raise TypeError('event is not EventCalendar.Event.event object')
@@ -65,11 +64,3 @@ class Calendar():
         for x in self.periods:
             res += str(x).replace('\n', '\n ') + '\n'
         return res.strip()
-    def __del__(self):
-        self.logFile.close()
-        if self.on_close != None:
-            try:
-                self.on_close(self)
-                print('succesfuly closed:', self.name)
-            except Exception as e:
-                print('failed to close:', self.name +';', 'Is python shuting down?')

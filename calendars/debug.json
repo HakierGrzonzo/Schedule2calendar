@@ -32,6 +32,26 @@
         },
         {
             "dateRange": [
+                "2020-03-05",
+                "2020-04-02"
+            ],
+            "days": [
+                {
+                    "date": "2020-03-18",
+                    "events": [
+                        {
+                            "date": "2020-03-18",
+                            "time": "04:04:00",
+                            "name": "xddd",
+                            "properties": {},
+                            "author": "web-ui"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "dateRange": [
                 "2020-04-02",
                 "2020-04-30"
             ],
@@ -53,6 +73,5 @@
     ],
     "startDate": "2020-03-05",
     "defaultPeriodLength": 28,
-    "name": "debug",
-    "on_close": {}
+    "name": "debug"
 }

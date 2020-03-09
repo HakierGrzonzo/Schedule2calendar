@@ -1,0 +1,30 @@
+{
+    "logFile": {
+        "mode": "a+"
+    },
+    "periods": [
+        {
+            "dateRange": [
+                "2020-03-09",
+                "2020-04-06"
+            ],
+            "days": [
+                {
+                    "date": "2020-03-10",
+                    "events": [
+                        {
+                            "date": "2020-03-10",
+                            "time": "08:55:00",
+                            "name": "Przygotowa\u0107 Ramberta na polski",
+                            "properties": {},
+                            "author": "web-ui"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "startDate": "2020-03-09",
+    "defaultPeriodLength": 28,
+    "name": "Szko\u0142a"
+}
