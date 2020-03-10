@@ -7,8 +7,13 @@
   <body>
     <header class="header">
       <h1>Calendar: {{ name }}</h1>
-      <a class="header" href="/index">Go back</a>
     </header>
+    <div class="interface">
+      <a class="interface" href="/calendar/{{ name }}?refresh=True">Force plugin refresh</a>
+      <a class="interface" href="/plugins?source=/calendar/{{ name }}">Manage plugins</a><br>
+      <a class="interface" href="/index">Go back</a>
+      <a class="interface" href="/calendar/{{ name }}?localSync=True">Sync to local files</a>
+    </div>
     <hr>
     {% if error %}
     <h3 class="error">{{ error }}</h3>

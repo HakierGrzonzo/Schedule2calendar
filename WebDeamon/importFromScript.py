@@ -2,7 +2,7 @@ from WebDeamon.UonetParser import GetTests, user
 from WebDeamon.routes import EventCalendar
 import datetime
 
-def UonetWrapper(calendar):
+def Uonet(calendar):
     tests = GetTests(user)
     for test in tests:
         date = [int(x) for x in test['date'].split('-')]

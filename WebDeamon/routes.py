@@ -36,15 +36,32 @@ def calendarDisplayer(calendarName):
     global calendars
     error = None
     calendar = None
+    # Sync to local files
+    if request.args.get('localSync') == 'True':
+        localSync()
     # find requested calendar by name
     for x in calendars:
         if calendarName == x.name:
             calendar = x
             break
-    # on faliure -> 404
+    # on faliure -> try to sync to local files -> 404
     if calendar == None:
-        abort(404)
-    #Extract data for new event from query:
+        localSync()
+        for x in calendars:
+            if calendarName == x.name:
+                calendar = x
+                break
+        if calendar == None:
+            abort(404)
+    # Run plugins if requested
+    if request.args.get('refresh') == 'True':
+        for plugin in calendar.properties.get('plugins', list()):
+            try:
+                plug = getattr(importFromScript, plugin)
+                calendar = plug(calendar)
+            except Exception as e:
+                raise Exception('error in plugin')
+    # Extract data for new event from query:
     try:
         data = request.args
         timeArr = data.get('eventTime').split(':')
@@ -72,10 +89,6 @@ def calendarDisplayer(calendarName):
     for i in range(len(dayArray)):
         for j in range(len(dayArray[i]['events'])):
             dayArray[i]['events'][j]['time'] = dayArray[i]['events'][j]['time'][:len(dayArray[i]['events'][j]['time']) - 3]
-    # sync the local database
-    if calendar.name == 'szkoła':
-        calendar = importFromScript.UonetWrapper(calendar)
-    localSync()
     return render_template('calendar.html', name = calendar.name, days = dayArray, minDate = calendar.startDate.isoformat(), error = error)
 
 @app.route('/sync/local')

@@ -3,8 +3,8 @@ import requests, json, bs4
 user = {"LoginName": None, "Password": None}
 with open("clientSecret.txt") as f:
 	lines = f.readlines()
-	user['LoginName'] = lines[0]
-	user['Password'] = lines[1]
+	user['LoginName'] = lines[0].strip()
+	user['Password'] = lines[1].strip()
 
 def ParseTable(table):
 	res = list()
@@ -29,7 +29,7 @@ def GetTests(user, weeks_forward = 4):
 	session = requests.Session()
 	root_url = "https://cufs.vulcan.net.pl"
 	login_url = "/gliwice/Account/LogOn?ReturnUrl=%2Fgliwice%2FFS%2FLS%3Fwa%3Dwsignin1.0%26wtrealm%3Dhttps%253a%252f%252fuonetplus.vulcan.net.pl%252fgliwice%252fLoginEndpoint.aspx%26wctx%3Dhttps%253a%252f%252fuonetplus.vulcan.net.pl%252fgliwice%252fLoginEndpoint.aspx"
-	print('Logging in')
+	print('UonetParser: Logging in')
 	loggedIn = session.post(root_url + login_url, data = user)
 	loggedIn = bs4.BeautifulSoup(loggedIn.text, features="lxml")
 	inputs = loggedIn.find_all('input')
@@ -37,12 +37,15 @@ def GetTests(user, weeks_forward = 4):
 	for tag in inputs:
 		if tag.get('name') != None:
 			agent[tag.get('name')] = tag.get('value')
-	print('reaching endpoint')
-	endpoint = session.post(agent['wctx'], data=agent)
+	print('UonetParser: Reaching endpoint')
+	try:
+		endpoint = session.post(agent['wctx'], data=agent)
+	except:
+		raise ValueError('UonetParser: Bad username or password')
 	endpoint = bs4.BeautifulSoup(endpoint.text, features = "lxml")
 	other_root = "https://uonetplus-opiekun.vulcan.net.pl"
 	StudentSite = "/gliwice/004001/Start/Index/"
-	print('Connecting to "uczeń"')
+	print('UonetParser: Connecting to "uczeń"')
 	Student = session.get(other_root + StudentSite)
 	Student = bs4.BeautifulSoup(Student.text, features="lxml")
 	res = None
@@ -53,7 +56,7 @@ def GetTests(user, weeks_forward = 4):
 				break
 	res += '?rodzajWidoku=2'
 	events = list()
-	print('Getting tests')
+	print('UonetParser: Getting tests')
 	for x in range(weeks_forward + 1):
 		TestSite = session.get(other_root + res)
 		TestSite = bs4.BeautifulSoup(TestSite.text, features = "lxml")

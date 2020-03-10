@@ -21,6 +21,7 @@ def load_from_dict(data, on_close = None):
         name = data['name'],
         startDate = datetime.date.fromisoformat(data['startDate']),
         defaultPeriodLength = data['defaultPeriodLength'],
+        properties = data.get('properties', dict()),
         periods = list(
             [Period.period(
                 dateRange = list([

@@ -118,5 +118,10 @@
     ],
     "startDate": "2020-03-10",
     "defaultPeriodLength": 28,
-    "name": "szko\u0142a"
+    "name": "szko\u0142a",
+    "properties": {
+        "plugins": [
+            "Uonet"
+        ]
+    }
 }
