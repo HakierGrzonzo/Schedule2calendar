@@ -1,0 +1,122 @@
+{
+    "logFile": {
+        "mode": "a+"
+    },
+    "periods": [
+        {
+            "dateRange": [
+                "2020-03-10",
+                "2020-04-07"
+            ],
+            "days": [
+                {
+                    "date": "2020-03-11",
+                    "events": [
+                        {
+                            "date": "2020-03-11",
+                            "time": "00:00:00",
+                            "name": "Fizyka 3aL - Fizyka relatywistyczna",
+                            "properties": {},
+                            "author": "UonetParser"
+                        }
+                    ]
+                },
+                {
+                    "date": "2020-03-12",
+                    "events": [
+                        {
+                            "date": "2020-03-12",
+                            "time": "00:00:00",
+                            "name": "Fizyka 3aL - Konstrukcje",
+                            "properties": {},
+                            "author": "UonetParser"
+                        }
+                    ]
+                },
+                {
+                    "date": "2020-03-17",
+                    "events": [
+                        {
+                            "date": "2020-03-17",
+                            "time": "00:00:00",
+                            "name": "J\u0119zyk polski 3aL - Synteza materia\u0142u",
+                            "properties": {},
+                            "author": "UonetParser"
+                        }
+                    ]
+                },
+                {
+                    "date": "2020-03-19",
+                    "events": [
+                        {
+                            "date": "2020-03-19",
+                            "time": "00:00:00",
+                            "name": "Fizyka 3aL - Matura pr\u00f3bna: fizyka atomowa, j\u0105drowa, astronomia",
+                            "properties": {},
+                            "author": "UonetParser"
+                        }
+                    ]
+                },
+                {
+                    "date": "2020-03-23",
+                    "events": [
+                        {
+                            "date": "2020-03-23",
+                            "time": "00:00:00",
+                            "name": "Matematyka 3aL - Pr\u00f3bna matura PR",
+                            "properties": {},
+                            "author": "UonetParser"
+                        }
+                    ]
+                },
+                {
+                    "date": "2020-03-26",
+                    "events": [
+                        {
+                            "date": "2020-03-26",
+                            "time": "00:00:00",
+                            "name": "Fizyka 3aL - Optyka",
+                            "properties": {},
+                            "author": "UonetParser"
+                        }
+                    ]
+                },
+                {
+                    "date": "2020-03-31",
+                    "events": [
+                        {
+                            "date": "2020-03-31",
+                            "time": "00:00:00",
+                            "name": "Fizyka 3aL - Matura pr\u00f3bna",
+                            "properties": {},
+                            "author": "UonetParser"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "dateRange": [
+                "2024-02-06",
+                "2024-03-05"
+            ],
+            "days": [
+                {
+                    "date": "2024-02-29",
+                    "events": [
+                        {
+                            "date": "2024-02-29",
+                            "time": "21:37:00",
+                            "name": "Szykanowanie papie\u017ca",
+                            "properties": {},
+                            "author": "web-ui"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "startDate": "2020-03-10",
+    "defaultPeriodLength": 28,
+    "name": "szko\u0142a"
+}

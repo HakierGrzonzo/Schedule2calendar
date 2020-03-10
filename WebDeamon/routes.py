@@ -2,6 +2,7 @@ from WebDeamon import app
 from flask import request, render_template, abort
 import EventCalendar
 import datetime, json, os
+from WebDeamon import importFromScript
 
 calendars = list()
 
@@ -9,6 +10,7 @@ calendars = list()
 @app.route('/index')
 def index():
     global calendars
+    localSync()
     error = None
     # if new calendar was requested -> try to create it
     try:
@@ -71,6 +73,8 @@ def calendarDisplayer(calendarName):
         for j in range(len(dayArray[i]['events'])):
             dayArray[i]['events'][j]['time'] = dayArray[i]['events'][j]['time'][:len(dayArray[i]['events'][j]['time']) - 3]
     # sync the local database
+    if calendar.name == 'szkoła':
+        calendar = importFromScript.UonetWrapper(calendar)
     localSync()
     return render_template('calendar.html', name = calendar.name, days = dayArray, minDate = calendar.startDate.isoformat(), error = error)
 

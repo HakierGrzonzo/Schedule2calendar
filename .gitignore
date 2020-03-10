@@ -125,3 +125,5 @@ dmypy.json
 
 # Specific
 client_secret.json
+
+clientSecret.txt

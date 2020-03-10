@@ -32,6 +32,8 @@ class Calendar():
             raise TypeError('event is not EventCalendar.Event.event object')
         if event_.date < self.startDate:
             raise ValueError('event has not valid date')
+        if len(self.findEvent(event_)) != 0:
+            raise ValueError('event already in this calendar')
         success = False
         self.logFile.write(json.dumps(get_json(event_)) + '\n')
         for x in self.periods:
